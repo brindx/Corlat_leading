@@ -24,7 +24,7 @@ export default function Hero() {
             Transportamos tu patrimonio con la seriedad que mereces. Desde fletes locales hasta traslados industriales nacionales.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a className="bg-[#25D366] text-white text-lg px-8 py-5 font-bold flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-transform duration-150" href="#">
+            <a className="bg-[#25D366] text-white text-lg px-8 py-5 font-bold flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-transform duration-150" href="https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?">
               <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: '"FILL" 1' }}>chat</span>
               COTIZA POR WHATSAPP
             </a>

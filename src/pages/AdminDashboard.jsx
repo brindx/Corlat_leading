@@ -36,6 +36,49 @@ export default function AdminDashboard() {
     navigate('/login');
   };
 
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setLoading(true);
+    
+    // 1. Crear un nombre único para el archivo
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+
+    // 2. Subir la imagen al bucket 'gallery-images' de Supabase
+    // Asegúrate de que el bucket 'gallery-images' exista y sea público.
+    const { error: uploadError } = await supabase.storage
+      .from('gallery-images')
+      .upload(fileName, file);
+
+    if (uploadError) {
+      alert('Error al subir la imagen: ' + uploadError.message);
+      setLoading(false);
+      return;
+    }
+
+    // 3. Obtener la URL pública de la imagen
+    const { data: publicUrlData } = supabase.storage
+      .from('gallery-images')
+      .getPublicUrl(fileName);
+
+    // 4. Guardar en la tabla portfolio
+    const { error: dbError } = await supabase
+      .from('portfolio')
+      .insert([{ 
+        image_url: publicUrlData.publicUrl, 
+        description: 'Nuevo trabajo de mudanza' 
+      }]);
+
+    if (!dbError) {
+      fetchData();
+    } else {
+      alert('Error al guardar en la base de datos: ' + dbError.message);
+    }
+    setLoading(false);
+  };
+
   const handleDeletePhoto = async (id) => {
     if (window.confirm('¿Estás seguro de eliminar esta foto?')) {
       await supabase.from('portfolio').delete().eq('id', id);
@@ -109,11 +152,18 @@ export default function AdminDashboard() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               {/* Upload Area */}
-              <div className="md:col-span-2 group relative border-4 border-dashed border-zinc-300 bg-white hover:border-red-700 hover:bg-red-50 transition-all duration-300 flex flex-col items-center justify-center p-12 cursor-pointer aspect-video md:aspect-auto">
+              <label className="md:col-span-2 group relative border-4 border-dashed border-zinc-300 bg-white hover:border-red-700 hover:bg-red-50 transition-all duration-300 flex flex-col items-center justify-center p-12 cursor-pointer aspect-video md:aspect-auto">
                 <span className="material-symbols-outlined text-zinc-300 group-hover:text-red-700 text-6xl mb-4 transition-colors">add_a_photo</span>
                 <p className="text-zinc-500 group-hover:text-red-900 font-bold font-headline text-lg text-center uppercase tracking-tighter">📸 Sube una nueva foto</p>
-                <p className="text-[10px] text-zinc-400 mt-2 uppercase">(Próximamente carga directa)</p>
-              </div>
+                <p className="text-[10px] text-zinc-400 mt-2 uppercase">(Click para seleccionar archivo)</p>
+                <input 
+                  type="file" 
+                  accept="image/png, image/jpeg, image/jpg" 
+                  className="hidden" 
+                  onChange={handleFileUpload} 
+                  disabled={loading}
+                />
+              </label>
 
               {/* Photo Grid items */}
               {photos.map((photo) => (
