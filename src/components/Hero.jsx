@@ -1,34 +1,62 @@
 import React from 'react';
 
+const WhatsAppIcon = () => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 448 512" 
+    width="24" 
+    height="24" 
+    fill="currentColor" 
+    className="text-white shrink-0"
+  >
+    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.6-.3-8.6 2.5-11.3 2.5-2.5 5.6-6.5 8.3-9.8 2.8-3.2 3.7-5.6 5.5-9.3 1.8-3.7.9-6.9-.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+  </svg>
+);
+
 export default function Hero() {
+  const whatsappUrl = "https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?";
+
   return (
-    <section className="relative min-h-[921px] flex items-center overflow-hidden">
+    <section className="relative min-h-[921px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
           className="w-full h-full object-cover" 
+          alt="Heavy-duty truck at sunset" 
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg8VdSZmts8y3A4S4SuJEmpEQx6ny66NPR9FkWIwgFH5sbXU8-ByFVuKGN21LrPOF2cip3WWGy-A4io0OvE1yGUQf58zXBi1KkLa_YaQKsc9QPP8W4LlTj97bUPmfQmIXdNIxreXfOnSLGJVpi8dPfHolBHoPew5rzxe4pocsnICEeiVDwQOGb2l3xYZdWNd4X7X-Q2S421NDAqe88i86S8xB_QlWSY5wYlyVWka_uU5ZPgBP9ia9pjGWfNRd6h-w9rWLlIGJG8d-u" 
-          alt="Camión de carga sobre una carretera al atardecer."
         />
         <div className="absolute inset-0 bg-industrial-overlay"></div>
       </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
-        <div className="max-w-3xl">
-          <div className="flex items-center gap-4 mb-6">
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 flex flex-col items-center text-center">
+        <div className="max-w-3xl space-y-8 animate-fade-in-up">
+          <div className="flex items-center justify-center gap-4 mb-2">
             <div className="w-12 h-1 bg-primary"></div>
-            <span className="text-white font-headline font-bold tracking-widest uppercase text-sm">100% Seguro y Confiable</span>
+            <span className="text-white font-headline font-bold tracking-widest uppercase text-xs">
+                100% Seguro y Confiable
+            </span>
+            <div className="w-12 h-1 bg-primary"></div>
           </div>
-          <h1 className="text-5xl md:text-7xl font-headline font-bold text-white leading-tight tracking-tight mb-8">
+
+          <h1 className="text-5xl md:text-7xl font-headline font-bold text-white leading-tight tracking-tight">
             Fletes y Mudanzas Seguras a Toda la República
           </h1>
-          <p className="text-xl text-zinc-300 mb-10 font-body leading-relaxed max-w-xl">
+
+          <p className="text-xl text-zinc-300 font-body leading-relaxed max-w-2xl mx-auto">
             Transportamos tu patrimonio con la seriedad que mereces. Desde fletes locales hasta traslados industriales nacionales.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a className="bg-[#25D366] text-white text-lg px-8 py-5 font-bold flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-transform duration-150" href="https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?">
-              <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: '"FILL" 1' }}>chat</span>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <a 
+              className="bg-[#25D366] text-white text-lg px-8 py-5 font-bold flex items-center justify-center gap-3 shadow-xl hover:scale-105 transition-transform duration-150" 
+              href={whatsappUrl}
+            >
+              <WhatsAppIcon />
               COTIZA POR WHATSAPP
             </a>
-            <a className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-lg px-8 py-5 font-bold hover:bg-white/20 transition-colors text-center" href="#services">
+            <a 
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white text-lg px-8 py-5 font-bold hover:bg-white/20 transition-colors text-center" 
+              href="#services"
+            >
               VER SERVICIOS
             </a>
           </div>

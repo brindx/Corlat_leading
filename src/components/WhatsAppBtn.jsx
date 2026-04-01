@@ -1,10 +1,21 @@
 import React from 'react';
 
+const ChatIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.319 1.592 5.548 0 10.058-4.51 10.06-10.059.002-2.689-1.047-5.215-2.951-7.121-1.905-1.905-4.433-2.953-7.124-2.953-5.549 0-10.06 4.511-10.063 10.06-.001 2.132.551 3.754 1.626 5.33l-1.066 3.891 3.999-1.049zm11.387-5.477c-.3-.149-1.774-.875-2.048-.975-.275-.1-.475-.149-.675.149-.2.299-.775.975-.95 1.175-.175.199-.35.224-.65.074-.3-.149-1.265-.466-2.41-1.487-.893-.797-1.495-1.782-1.67-2.081-.175-.299-.019-.461.13-.61.135-.133.3-.349.45-.523.15-.175.2-.299.3-.499.1-.2.05-.375-.025-.524-.075-.15-.675-1.625-.925-2.224-.244-.589-.491-.51-.675-.519-.175-.01-.375-.01-.575-.01-.2 0-.525.075-.8.374-.275.299-1.05 1.025-1.05 2.5 0 1.475 1.075 2.899 1.225 3.099.15.2 2.115 3.23 5.125 4.532.715.31 1.273.495 1.708.633.719.227 1.373.196 1.89.119.577-.087 1.774-.725 2.024-1.424.25-.699.25-1.299.175-1.424-.075-.124-.275-.199-.575-.349z"/>
+    </svg>
+);
+
 export default function WhatsAppBtn() {
+  const whatsappUrl = "https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?";
+
   return (
     <div className="fixed bottom-6 right-6 z-50 md:hidden">
-      <a className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-transform" href="https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?">
-        <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: '"FILL" 1' }}>chat</span>
+      <a 
+        className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-110 active:scale-95 transition-all duration-150" 
+        href={whatsappUrl}
+      >
+        <ChatIcon />
       </a>
     </div>
   );

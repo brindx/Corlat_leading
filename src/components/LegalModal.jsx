@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+const CloseIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400 group-hover:text-primary transition-colors"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+);
+
 const legalTexts = {
   privacy: {
     title: 'Aviso de Privacidad',
@@ -7,16 +11,17 @@ const legalTexts = {
       <>
         <p className="mb-4 text-zinc-600 leading-relaxed text-sm">En <strong>Corlat Logística y Traslados</strong>, valoramos su privacidad. Los datos personales que recopilamos (nombre, teléfono y correo electrónico) son utilizados únicamente para fines de cotización y contacto directo con el cliente.</p>
         <p className="mb-4 text-zinc-600 leading-relaxed text-sm">No compartimos su información con terceros. Usted tiene derecho a solicitar la eliminación de sus datos en cualquier momento comunicándose directamente con nosotros.</p>
-        <p className="text-zinc-600 leading-relaxed text-sm italic">Última actualización: Marzo 2024</p>
+        <p className="text-zinc-600 leading-relaxed text-sm italic font-bold">Corlat Logística industrial - Villahermosa, Tabasco.</p>
+        <p className="text-zinc-400 leading-relaxed text-xs italic mt-4">Última actualización: Marzo 2026</p>
       </>
     )
   },
   terms: {
-    title: 'Términos de Servicio',
+    title: 'Términos y Condiciones',
     content: (
       <>
-        <p className="mb-4 text-zinc-600 leading-relaxed text-sm">Al contratar nuestros servicios de fletes o mudanzas, usted acepta los siguientes términos:</p>
-        <ul className="list-disc pl-5 mb-4 text-zinc-400 space-y-2 text-sm italic">
+        <p className="mb-4 text-zinc-600 leading-relaxed text-sm">Al contratar nuestros servicios de fletes o mudanzas con <strong>Corlat</strong>, usted acepta los siguientes términos:</p>
+        <ul className="list-disc pl-5 mb-4 text-zinc-500 space-y-2 text-sm italic">
           <li>Los tiempos de entrega son estimados y pueden variar según condiciones climáticas o de tránsito.</li>
           <li>Cualquier objeto de alto valor (joyas, dinero en efectivo, documentos legales) debe ser transportado personalmente por el cliente.</li>
           <li>Corlat se responsabiliza por el manejo profesional de sus pertenencias embaladas bajo nuestros estándares.</li>
@@ -51,23 +56,23 @@ export default function LegalModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-zinc-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white w-full max-w-2xl border-l-[12px] border-primary shadow-[0_0_80px_rgba(0,0,0,0.5)] p-12 relative animate-fade-in-up">
-        <button onClick={close} className="absolute top-6 right-6 text-zinc-400 hover:text-primary transition-colors">
-          <span className="material-symbols-outlined text-3xl">close</span>
+    <div className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-zinc-950/90 backdrop-blur-md animate-fade-in">
+      <div className="bg-white w-full max-w-2xl border-l-[12px] border-primary shadow-[0_0_100px_rgba(0,0,0,0.6)] p-12 relative animate-fade-in-up">
+        <button onClick={close} className="absolute top-6 right-6 group p-2">
+          <CloseIcon />
         </button>
 
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <div className="w-1 h-8 bg-primary"></div>
-            <h2 className="text-3xl font-headline font-black uppercase tracking-tighter italic">{legalTexts[type].title}</h2>
+            <div className="w-1 h-10 bg-primary"></div>
+            <h2 className="text-4xl font-headline font-black uppercase tracking-tighter italic leading-none">{legalTexts[type].title}</h2>
           </div>
           
-          <div className="border-y border-zinc-100 py-8">
+          <div className="border-y border-zinc-100 py-10 my-6">
             {legalTexts[type].content}
           </div>
 
-          <button onClick={close} className="bg-primary text-white w-full py-4 font-black uppercase tracking-[0.2em] text-xs hover:bg-zinc-800 transition-colors shadow-lg">
+          <button onClick={close} className="bg-primary text-white w-full py-5 font-black uppercase tracking-[0.3em] text-xs hover:bg-zinc-800 transition-colors shadow-2xl hover:scale-105 transition-transform duration-200">
             Entendido y Cerrar
           </button>
         </div>
