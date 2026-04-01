@@ -101,7 +101,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar - SIMPLE & INDUSTRIAL */}
         <div className="pt-12 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           <p className="text-zinc-600 text-[10px] md:text-xs tracking-[0.2em] uppercase font-black flex items-center gap-2">
             <button 
@@ -111,11 +111,10 @@ export default function Footer() {
             >
                 ©
             </button>
-            <span>2026 CORLAT. LOGÍSTICA INTEGRAL.</span>
+            <span>2026 CORLAT. LOGÍSTICA INTEGRAL. MÉXICO.</span>
           </p>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest">
-            <button onClick={() => openLegal('privacy')} className="hover:text-white underline decoration-red-700 decoration-2 underline-offset-4">Privacidad</button>
-            <button onClick={() => openLegal('terms')} className="hover:text-white underline decoration-red-700 decoration-2 underline-offset-4">Términos</button>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-[10px] md:text-xs text-zinc-700 font-bold uppercase tracking-[0.3em]">
+             Liderazgo • Seguridad • Confianza
           </div>
         </div>
       </div>

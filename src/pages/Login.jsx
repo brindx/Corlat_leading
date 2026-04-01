@@ -48,39 +48,37 @@ export default function Login() {
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/40"></div>
       </div>
 
-      {/* Main Container - WHITE COMPACT FORM */}
-      <main className="relative z-10 w-full max-w-md animate-fade-in-up">
-        
-        <div className="bg-white p-10 md:p-14 border-t-[8px] border-primary shadow-[0_60px_120px_rgba(0,0,0,0.6)]">
+      {/* Main Container - BALANCED WHITE FORM */}
+      <main className="relative z-10 w-full max-w-md animate-fade-in-up py-10">
+        <div className="bg-white p-8 md:p-12 border-t-[8px] border-primary shadow-[0_60px_120px_rgba(0,0,0,0.6)]">
           
-          {/* Branding with Official Logo */}
-          <div className="flex flex-col items-center mb-10">
-            <div className="mb-6">
-               <img src={Logo} alt="Corlat Logo" className="h-28 md:h-36 w-auto object-contain animate-fade-in-up" />
+          {/* Branding - Balanced Size */}
+          <div className="flex flex-col items-center mb-8">
+            <div className="mb-4 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => navigate('/')} title="Volver al Inicio">
+               <img src={Logo} alt="Corlat Logo" className="h-20 md:h-24 w-auto object-contain" />
             </div>
-            <h1 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase text-zinc-950 leading-none text-center">
+            <h1 className="font-headline font-black text-2xl md:text-3xl tracking-tighter uppercase text-zinc-950 leading-none text-center">
               Corlat <span className="text-primary italic">Admin</span>
             </h1>
-            <p className="text-zinc-400 text-[10px] uppercase tracking-[.4em] font-black mt-3 italic text-center">Terminal de Gestión Corlat</p>
+            <p className="text-zinc-400 text-[9px] uppercase tracking-[.4em] font-black mt-2 italic text-center">Terminal de Gestión Corlat</p>
           </div>
 
           {error && (
-            <div className="bg-red-50 border-l-4 border-primary p-4 mb-8">
-              <p className="text-red-700 text-xs font-black uppercase tracking-[.2em]">{error}</p>
+            <div className="bg-red-50 border-l-4 border-primary p-3 mb-6">
+              <p className="text-red-700 text-[10px] font-black uppercase tracking-[.2em]">{error}</p>
             </div>
           )}
 
           {/* Form */}
-          <form onSubmit={handleLogin} className="space-y-6">
-            
-            <div className="space-y-2 group">
-              <label className="block text-[10px] font-black uppercase tracking-[.3em] text-zinc-400 group-focus-within:text-primary transition-colors">Usuario Maestro</label>
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div className="space-y-1.5 group">
+              <label className="block text-[9px] font-black uppercase tracking-[.3em] text-zinc-400 group-focus-within:text-primary transition-colors">Usuario Maestro</label>
               <div className="relative flex items-center">
                 <div className="absolute left-4 text-zinc-300 group-focus-within:text-primary transition-colors">
                   <MailIcon />
                 </div>
                 <input 
-                  className="w-full pl-12 pr-4 py-4 bg-zinc-50 border-b-2 border-zinc-100 focus:border-primary focus:bg-white transition-all outline-none font-bold placeholder:text-zinc-200 text-sm tracking-wide" 
+                  className="w-full pl-12 pr-4 py-3.5 bg-zinc-50 border-b-2 border-zinc-100 focus:border-primary focus:bg-white transition-all outline-none font-bold placeholder:text-zinc-200 text-sm tracking-wide" 
                   type="email"
                   placeholder="ID@CORLAT.COM"
                   value={email}
@@ -90,14 +88,14 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="space-y-2 group">
-              <label className="block text-[10px] font-black uppercase tracking-[.3em] text-zinc-400 group-focus-within:text-primary transition-colors">Código de Seguridad</label>
+            <div className="space-y-1.5 group">
+              <label className="block text-[9px] font-black uppercase tracking-[.3em] text-zinc-400 group-focus-within:text-primary transition-colors">Código de Seguridad</label>
               <div className="relative flex items-center">
                 <div className="absolute left-4 text-zinc-300 group-focus-within:text-primary transition-colors">
                   <LockIcon />
                 </div>
                 <input 
-                  className="w-full pl-12 pr-4 py-4 bg-zinc-50 border-b-2 border-zinc-100 focus:border-primary focus:bg-white transition-all outline-none font-bold placeholder:text-zinc-200 text-sm tracking-wide" 
+                  className="w-full pl-12 pr-4 py-3.5 bg-zinc-50 border-b-2 border-zinc-100 focus:border-primary focus:bg-white transition-all outline-none font-bold placeholder:text-zinc-200 text-sm tracking-wide" 
                   type="password"
                   placeholder="••••••••"
                   value={password}
@@ -109,25 +107,25 @@ export default function Login() {
 
             <button 
               disabled={loading}
-              className="w-full bg-zinc-950 text-white py-5 font-headline font-black text-xs md:text-sm uppercase tracking-[0.4em] hover:bg-primary active:scale-[0.98] transition-all duration-300 flex justify-center items-center gap-3 shadow-2xl disabled:opacity-50 mt-6" 
+              className="w-full bg-zinc-950 text-white py-4.5 font-headline font-black text-xs md:text-sm uppercase tracking-[0.4em] hover:bg-primary active:scale-[0.98] transition-all duration-300 flex justify-center items-center gap-3 shadow-2xl disabled:opacity-50 mt-4" 
               type="submit"
             >
-              <span className="relative z-10">{loading ? 'VERIFICANDO...' : 'ENTRAR AL PANEL'}</span>
+              <span>{loading ? 'VERIFICANDO...' : 'ENTRAR AL PANEL'}</span>
               {!loading && <LoginIcon />}
             </button>
           </form>
 
           {/* Institutional Small */}
-          <div className="mt-12 pt-8 border-t border-zinc-50 text-center">
-            <p className="text-[9px] font-black uppercase tracking-[.4em] text-zinc-300 italic leading-none">
+          <div className="mt-10 pt-6 border-t border-zinc-50 text-center">
+            <p className="text-[8px] font-black uppercase tracking-[.4em] text-zinc-300 italic leading-none">
                Acceso a Infraestructura de Datos Corlat
             </p>
           </div>
         </div>
 
-        {/* Outer Minimal Branding */}
-        <div className="mt-12 opacity-50 text-center">
-             <p className="text-[10px] font-black tracking-[0.6em] uppercase italic text-zinc-400 leading-none">LOGÍSTICA • SISTEMAS • 2026</p>
+        {/* Footer Subtle */}
+        <div className="mt-8 opacity-40 text-center">
+             <p className="text-[9px] font-black tracking-[0.5em] uppercase italic text-zinc-400 leading-none">LOGÍSTICA • SISTEMAS • 2026</p>
         </div>
       </main>
 
