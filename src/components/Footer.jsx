@@ -1,8 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ChatIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-white">
-        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.319 1.592 5.548 0 10.058-4.51 10.06-10.059.002-2.689-1.047-5.215-2.951-7.121-1.905-1.905-4.433-2.953-7.124-2.953-5.549 0-10.06 4.511-10.063 10.06-.001 2.132.551 3.754 1.626 5.33l-1.066 3.891 3.999-1.049zm11.387-5.477c-.3-.149-1.774-.875-2.048-.975-.275-.1-.475-.149-.675.149-.2.299-.775.975-.95 1.175-.175.199-.35.224-.65.074-.3-.149-1.265-.466-2.41-1.487-.893-.797-1.495-1.782-1.67-2.081-.175-.299-.019-.461.13-.61.135-.133.3-.349.45-.523.15-.175.2-.299.3-.499.1-.2.05-.375-.025-.524-.075-.15-.675-1.625-.925-2.224-.244-.589-.491-.51-.675-.519-.175-.01-.375-.01-.575-.01-.2 0-.525.075-.8.374-.275.299-1.05 1.025-1.05 2.5 0 1.475 1.075 2.899 1.225 3.099.15.2 2.115 3.23 5.125 4.532.715.31 1.273.495 1.708.633.719.227 1.373.196 1.89.119.577-.087 1.774-.725 2.024-1.424.25-.699.25-1.299.175-1.424-.075-.124-.275-.199-.575-.349z"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 448 512" fill="currentColor" className="text-white shrink-0">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.6-.3-8.6 2.5-11.3 2.5-2.5 5.6-6.5 8.3-9.8 2.8-3.2 3.7-5.6 5.5-9.3 1.8-3.7.9-6.9-.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
     </svg>
 );
 
@@ -31,23 +32,29 @@ const TikTokIcon = () => (
 );
 
 export default function Footer() {
+  const navigate = useNavigate();
   const whatsappUrl = "https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?";
 
   const openLegal = (type) => {
     window.dispatchEvent(new CustomEvent('openLegal', { detail: { type } }));
   };
 
+  const handleAdminClick = (e) => {
+    e.preventDefault();
+    navigate('/login');
+  };
+
   return (
-    <footer className="bg-zinc-950 text-white py-20 px-8">
+    <footer className="bg-zinc-950 text-white py-16 md:py-24 px-6 md:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
-          {/* Col 1: Marca & Redes */}
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 mb-16">
+          {/* Brand & Social */}
+          <div className="space-y-6 text-center md:text-left">
             <div className="text-2xl font-black uppercase tracking-tighter font-headline">Fletes y Mudanzas Corlat</div>
-            <p className="text-zinc-400 text-sm leading-relaxed max-w-xs">
+            <p className="text-zinc-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
                 Liderazgo industrial en transporte y logística. Conectamos destinos con seguridad, integridad y puntualidad absoluta.
             </p>
-            <div className="flex gap-4">
+            <div className="flex justify-center md:justify-start gap-4">
               <a href="https://www.facebook.com/share/18eNvWNPvm/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-primary transition-colors">
                 <FacebookIcon />
               </a>
@@ -60,28 +67,28 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Col 2: Contacto Directo */}
-          <div className="space-y-6">
+          {/* Contact Direct */}
+          <div className="space-y-6 text-center md:text-left">
             <h5 className="text-xl font-headline font-bold">Contacto Directo</h5>
             <div className="space-y-4">
-              <div className="flex items-center gap-4 text-zinc-400">
+              <div className="flex flex-col md:flex-row items-center gap-4 text-zinc-400">
                 <PhoneIcon />
                 <a href="tel:9931707640" className="font-headline font-bold text-white text-lg hover:text-primary transition-colors">993 170 7640</a>
               </div>
-              <div className="flex items-center gap-4 text-zinc-400 text-sm">
+              <div className="flex flex-col md:flex-row items-center gap-4 text-zinc-400 text-sm">
                 <MailIcon />
-                <a href="mailto:fabiolahernandezbautista500@gmail.com" className="hover:text-primary transition-colors">fabiolahernandezbautista500@gmail.com</a>
+                <a href="mailto:fabiolahernandezbautista500@gmail.com" className="hover:text-primary transition-colors break-all">fabiolahernandezbautista500@gmail.com</a>
               </div>
-              <div className="flex items-center gap-4 text-zinc-400 text-sm">
+              <div className="flex flex-col md:flex-row items-center gap-4 text-zinc-400 text-sm">
                 <LocationIcon />
                 <p>Villahermosa, Tabasco / CDMX</p>
               </div>
             </div>
           </div>
 
-          {/* Col 3: CTA Fast */}
+          {/* Fast CTA */}
           <div className="bg-zinc-900 p-8 border-l-4 border-primary">
-            <h5 className="text-xl font-headline font-bold mb-4 italic">¿Necesitas un presupuesto?</h5>
+            <h5 className="text-xl font-headline font-bold mb-4 italic">¿Necesitas presupuesto?</h5>
             <p className="text-zinc-400 text-sm mb-6">Respondemos en menos de 10 minutos vía WhatsApp.</p>
             <a 
               className="bg-[#25D366] text-white w-full py-4 font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity uppercase text-xs" 
@@ -93,18 +100,19 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-12 border-t border-zinc-800 flex flex-col md:row justify-between items-center gap-6">
-          <p className="text-zinc-600 text-xs">
-            © 2026 Corlat. Todos los derechos reservados. 
+        {/* Bottom Bar Responsivo */}
+        <div className="pt-12 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+          <p className="text-zinc-600 text-[10px] md:text-xs tracking-widest uppercase font-bold flex items-center">
             <button 
-                onClick={() => window.location.href='/admin'} 
-                className="opacity-0 hover:opacity-100 transition-opacity ml-1"
+                onClick={handleAdminClick} 
+                className="opacity-20 hover:opacity-100 transition-opacity cursor-pointer p-2 hover:text-white"
+                title="Acceso Administrativo"
             >
                 ©
             </button>
+            <span>2026 Corlat. Todos los derechos reservados.</span>
           </p>
-          <div className="flex gap-8 text-xs text-zinc-500 font-bold uppercase tracking-widest">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest">
             <button onClick={() => openLegal('privacy')} className="hover:text-white underline decoration-red-700 decoration-2 underline-offset-4">Aviso de Privacidad</button>
             <button onClick={() => openLegal('terms')} className="hover:text-white underline decoration-red-700 decoration-2 underline-offset-4">Términos y Condiciones</button>
           </div>

@@ -24,7 +24,7 @@ export default function Header() {
     <nav className="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md shadow-[0_20px_40px_rgba(178,34,34,0.08)]">
       <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
         <div className="text-xl font-black text-zinc-900 uppercase tracking-tighter font-headline leading-none">
-            Fletes y Mudanzas Corlat
+            Fletes y Mudanzas <span className="text-primary italic">Corlat</span>
         </div>
 
         {/* Desktop Menu */}
