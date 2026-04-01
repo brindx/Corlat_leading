@@ -19,7 +19,7 @@ const BillingIcon = () => (
 const allServices = [
   {
     title: 'Locales y Foráneos',
-    description: 'En Corlat cubrimos todas las rutas del país, desde fletes urbanos hasta traslados interestatales de larga distancia. Equipados con GPS para asegurar puntualidad y rastreo constante.',
+    description: 'Nuestra red logística abarca cada rincón del territorio nacional, garantizando rutas estratégicas y seguridad absoluta en traslados urbanos e interestatales de larga distancia. Equipados con rastreo satelital para asegurar puntualidad constante.',
     Icon: TruckIcon
   },
   {
@@ -70,12 +70,12 @@ export default function Services() {
                     key={index} 
                     className={`
                         bg-white p-8 md:p-10 border-t-4 border-zinc-100 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col items-start text-left 
-                        w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] min-h-[340px]
+                        w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] min-h-[360px]
                     `}
                 >
                   <service.Icon />
-                  <h4 className="text-lg font-headline font-black mb-4 uppercase tracking-tight group-hover:text-primary transition-colors leading-tight">{service.title}</h4>
-                  <p className="text-zinc-500 text-[11px] md:text-xs leading-relaxed font-bold mb-6 flex-grow">
+                  <h4 className="text-xl font-headline font-black mb-4 uppercase tracking-tight group-hover:text-primary transition-colors leading-tight">{service.title}</h4>
+                  <p className="text-zinc-500 text-xs md:text-sm leading-relaxed font-bold mb-8 flex-grow">
                     {service.description}
                   </p>
 
@@ -83,10 +83,10 @@ export default function Services() {
                     href={`https://wa.me/${numeroWa}?text=${mensajeWa}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn relative inline-flex items-center gap-3 text-primary font-black text-[10px] uppercase tracking-[0.2em] border-b-2 border-primary/20 pb-1 hover:border-primary transition-all mt-auto"
+                    className="group/btn relative inline-flex items-center gap-3 text-primary font-black text-[11px] uppercase tracking-[0.25em] border-b-2 border-primary/20 pb-1 hover:border-primary transition-all mt-auto"
                   >
-                    Cotizar este servicio
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover/btn:translate-x-1 transition-transform">
+                    Cotizar servicio
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover/btn:translate-x-1 transition-transform">
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                         <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>

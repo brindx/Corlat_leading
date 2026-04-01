@@ -83,7 +83,19 @@
     }
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  @keyframes pulseSlow {
+    0%, 100% { opacity: 0.2; transform: scale(1.05); }
+    50% { opacity: 0.1; transform: scale(1); }
   }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 8s ease-in-out infinite;
+  }
+
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
 }

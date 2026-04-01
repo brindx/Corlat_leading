@@ -53,7 +53,7 @@ export default function Footer() {
           {/* Brand & Social - WITH LOGO SEAL */}
           <div className="space-y-6 text-center md:text-left">
             <div className="flex flex-col md:flex-row items-center gap-4 text-2xl font-black uppercase tracking-tighter font-headline leading-none">
-                <img src={Logo} alt="Corlat Logo Seal" className="h-16 w-auto object-contain brightness-0 invert" />
+                <img src={Logo} alt="Corlat Logo Seal" className="h-20 w-auto object-contain" />
                 <span>Fletes y Mudanzas <br/><span className="text-primary italic">Corlat</span></span>
             </div>
             <p className="text-zinc-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0 font-medium tracking-tight">
@@ -78,7 +78,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col md:flex-row items-center gap-4 text-zinc-400 text-sm font-bold">
                 <MailIcon />
-                <a href="mailto:fabiolahernandezbautista500@gmail.com" className="hover:text-primary transition-colors break-all">fabiola@corlat.com</a>
+                <a href="mailto:fabiolahernandezbautista500@gmail.com" className="hover:text-primary transition-colors break-all">fabiolahernandezbautista500@gmail.com</a>
               </div>
               <div className="flex flex-col md:flex-row items-center gap-4 text-zinc-400 text-sm font-bold">
                 <LocationIcon />
