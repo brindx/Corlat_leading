@@ -19,62 +19,81 @@ const BillingIcon = () => (
 const allServices = [
   {
     title: 'Locales y Foráneos',
-    description: 'En Corlat cubrimos todas las rutas del país, desde fletes urbanos hasta traslados interestatales. Utilizamos vehículos modernos equipados con GPS para asegurar puntualidad y rastreo en tiempo real.',
+    description: 'En Corlat cubrimos todas las rutas del país, desde fletes urbanos hasta traslados interestatales de larga distancia. Equipados con GPS para asegurar puntualidad y rastreo constante.',
     Icon: TruckIcon
   },
   {
     title: 'Compartidos y Exclusivos',
-    description: 'Gestionamos logísticas de alto rendimiento adaptadas a tu presupuesto. Ofrecemos unidades de uso exclusivo o esquemas compartidos que permiten optimizar costos sin comprometer la carga.',
+    description: 'Gestionamos logísticas de alto rendimiento adaptadas a tu presupuesto. Ofrecemos unidades exclusivas para máxima velocidad o esquemas compartidos para optimizar costos significativamente.',
     Icon: MixIcon
   },
   {
     title: 'Volados Profesionales',
-    description: 'Resolvemos los desafíos arquitectónicos más complejos. Nuestras maniobras incluyen personal certificado y equipo especializado para mover mobiliario de gran tamaño de forma milimétrica.',
+    description: 'Resolvemos los desafíos arquitectónicos más complejos con seguridad absoluta. Nuestras maniobras incluyen personal certificado y equipo especializado para mover mobiliario de gran tamaño.',
     Icon: VoladosIcon
   },
   {
     title: 'Maniobras y Embalaje',
-    description: 'Más allá del traslado, ejecutamos maniobras de carga, descarga y acomodo estratégico. Utilizamos materiales industriales para garantizar que hasta el objeto más delicado llegue intacto.',
+    description: 'Ejecutamos maniobras de carga, descarga y acomodo estratégico. Utilizamos materiales industriales para garantizar que hasta el objeto más delicado de tu patrimonio llegue intacto.',
     Icon: ManiobrasIcon
   },
   {
     title: 'Servicio de Facturación',
-    description: 'Proveemos certidumbre fiscal absoluta. Emitimos facturas oficiales (CFDI) inmediatas y detalladas, facilitando la comprobación de gastos para empresas corporativas o deducciones personales.',
+    description: 'Proveemos certidumbre fiscal absoluta a nuestros clientes corporativos. Emitimos facturas oficiales (CFDI) inmediatas y detalladas, facilitando la comprobación de gastos de forma transparente.',
     Icon: BillingIcon
   }
 ];
 
 export default function Services() {
+  const numeroWa = "529931707640";
+
   return (
-    <section className="py-20 md:py-24 bg-zinc-50 overflow-hidden" id="services">
+    <section className="py-20 md:py-24 bg-zinc-50 overflow-hidden font-body" id="services">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-2">
             <div className="w-8 h-1 bg-primary"></div>
-            <span className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">Soluciones Prime</span>
+            <span className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">Logística Especializada</span>
             <div className="w-8 h-1 bg-primary"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-headline font-black mb-4 uppercase tracking-tighter italic">Especialidades <span className="text-primary italic">Corlat</span></h2>
-          <p className="text-zinc-500 max-w-2xl mx-auto font-medium text-sm">Ofrecemos un nivel superior de logística basado en la precisión operativa y el compromiso total.</p>
+          <h2 className="text-4xl md:text-5xl font-headline font-black mb-4 uppercase tracking-tighter italic">Soluciones <span className="text-primary italic">Corlat</span></h2>
+          <p className="text-zinc-500 max-w-2xl mx-auto font-medium text-sm">Precisión operativa y compromiso total en cada servicio contratado.</p>
         </div>
 
-        {/* Custom Layout: 3 Top, 2 Bottom Centered */}
+        {/* 3 Top, 2 Bottom Centered with PER-SERVICE WhatsApp */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-6xl mx-auto">
-          {allServices.map((service, index) => (
-            <div 
-                key={index} 
-                className={`
-                    bg-white p-8 md:p-10 border-t-4 border-zinc-100 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col items-center text-center md:items-start md:text-left 
-                    w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] min-h-[280px]
-                `}
-            >
-              <service.Icon />
-              <h4 className="text-lg font-headline font-black mb-4 uppercase tracking-tight group-hover:text-primary transition-colors">{service.title}</h4>
-              <p className="text-zinc-500 text-[11px] md:text-xs leading-relaxed font-medium">
-                {service.description}
-              </p>
-            </div>
-          ))}
+          {allServices.map((service, index) => {
+            const mensajeWa = encodeURIComponent(`¡Hola Corlat! 👋 Vengo de la página web. Me gustaría una cotización y más información para el servicio de: ${service.title}.`);
+            
+            return (
+                <div 
+                    key={index} 
+                    className={`
+                        bg-white p-8 md:p-10 border-t-4 border-zinc-100 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col items-start text-left 
+                        w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] min-h-[340px]
+                    `}
+                >
+                  <service.Icon />
+                  <h4 className="text-lg font-headline font-black mb-4 uppercase tracking-tight group-hover:text-primary transition-colors leading-tight">{service.title}</h4>
+                  <p className="text-zinc-500 text-[11px] md:text-xs leading-relaxed font-bold mb-6 flex-grow">
+                    {service.description}
+                  </p>
+
+                  <a 
+                    href={`https://wa.me/${numeroWa}?text=${mensajeWa}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn relative inline-flex items-center gap-3 text-primary font-black text-[10px] uppercase tracking-[0.2em] border-b-2 border-primary/20 pb-1 hover:border-primary transition-all mt-auto"
+                  >
+                    Cotizar este servicio
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover/btn:translate-x-1 transition-transform">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+            )
+          })}
         </div>
       </div>
     </section>

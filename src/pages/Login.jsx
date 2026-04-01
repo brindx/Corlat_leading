@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/Corlat_Logo.png';
 
-const TruckIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-);
 const MailIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
 );
@@ -50,15 +48,15 @@ export default function Login() {
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/40"></div>
       </div>
 
-      {/* Main Container - MEDIUM SCALE WHITE FORM */}
+      {/* Main Container - WHITE COMPACT FORM */}
       <main className="relative z-10 w-full max-w-md animate-fade-in-up">
         
         <div className="bg-white p-10 md:p-14 border-t-[8px] border-primary shadow-[0_60px_120px_rgba(0,0,0,0.6)]">
           
-          {/* Branding - Pro Size */}
+          {/* Branding with Official Logo */}
           <div className="flex flex-col items-center mb-10">
-            <div className="mb-6 scale-110">
-               <TruckIcon />
+            <div className="mb-6">
+               <img src={Logo} alt="Corlat Logo" className="h-28 md:h-36 w-auto object-contain animate-fade-in-up" />
             </div>
             <h1 className="font-headline font-black text-3xl md:text-4xl tracking-tighter uppercase text-zinc-950 leading-none text-center">
               Corlat <span className="text-primary italic">Admin</span>
@@ -72,7 +70,7 @@ export default function Login() {
             </div>
           )}
 
-          {/* Form - Larger Elements */}
+          {/* Form */}
           <form onSubmit={handleLogin} className="space-y-6">
             
             <div className="space-y-2 group">
@@ -120,16 +118,16 @@ export default function Login() {
           </form>
 
           {/* Institutional Small */}
-          <div className="mt-12 pt-8 border-t border-zinc-50">
-            <p className="text-[9px] font-black uppercase tracking-[.4em] text-zinc-300 text-center italic leading-none">
-               Protocolo de Seguridad Industrial Activado
+          <div className="mt-12 pt-8 border-t border-zinc-50 text-center">
+            <p className="text-[9px] font-black uppercase tracking-[.4em] text-zinc-300 italic leading-none">
+               Acceso a Infraestructura de Datos Corlat
             </p>
           </div>
         </div>
 
-        {/* Footer Subtle */}
+        {/* Outer Minimal Branding */}
         <div className="mt-12 opacity-50 text-center">
-             <p className="text-[10px] font-black tracking-[0.5em] uppercase italic text-zinc-400">LOGÍSTICA • INFRAESTRUCTURA • 2026</p>
+             <p className="text-[10px] font-black tracking-[0.6em] uppercase italic text-zinc-400 leading-none">LOGÍSTICA • SISTEMAS • 2026</p>
         </div>
       </main>
 

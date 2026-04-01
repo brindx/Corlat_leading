@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Logo from '../assets/Corlat_Logo.png';
 
 const WhatsAppIcon = () => (
     <svg 
@@ -18,13 +20,15 @@ const MenuIcon = () => (
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const whatsappUrl = "https://wa.me/529931707640?text=%C2%A1Hola%20Corlat!%20%F0%9F%91%8B%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20y%20una%20cotizaci%C3%B3n%20para%20un%20servicio%20de%20fletes%20o%20mudanzas.%20%C2%BFMe%20podr%C3%ADan%20ayudar?";
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md shadow-[0_20px_40px_rgba(178,34,34,0.08)]">
       <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
-        <div className="text-xl font-black text-zinc-900 uppercase tracking-tighter font-headline leading-none">
-            Fletes y Mudanzas <span className="text-primary italic">Corlat</span>
+        <div className="flex items-center gap-3 text-xl font-black text-zinc-900 uppercase tracking-tighter font-headline leading-none cursor-pointer" onClick={() => navigate('/')}>
+            <img src={Logo} alt="Corlat Logo" className="h-10 md:h-12 w-auto object-contain" />
+            <span>Fletes y Mudanzas <span className="text-primary italic">Corlat</span></span>
         </div>
 
         {/* Desktop Menu */}
