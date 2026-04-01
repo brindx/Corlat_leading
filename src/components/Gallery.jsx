@@ -5,8 +5,7 @@ const GalleryImage = ({ img }) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     return (
-        <div key={img.id} className="group relative overflow-hidden bg-zinc-100 border border-zinc-200 aspect-auto min-h-[200px]">
-            {/* Skeleton Pulse Industrial */}
+        <div className="group relative overflow-hidden bg-zinc-100 border border-zinc-200 aspect-auto min-h-[200px] animate-fade-in-up">
             {!isLoaded && (
                 <div className="absolute inset-0 bg-gradient-to-r from-zinc-100 via-zinc-200 to-zinc-100 animate-pulse">
                     <div className="w-full h-full flex items-center justify-center opacity-10">
@@ -31,6 +30,8 @@ const GalleryImage = ({ img }) => {
 
 export default function Gallery() {
   const [images, setImages] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(8);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     fetchImages();
@@ -41,9 +42,20 @@ export default function Gallery() {
   }, []);
 
   const fetchImages = async () => {
-    const { data } = await supabase.from('portfolio').select('*').order('created_at', { ascending: false });
+    const { data, count } = await supabase
+      .from('portfolio')
+      .select('*', { count: 'exact' })
+      .order('created_at', { ascending: false });
+    
     setImages(data || []);
+    setTotalCount(count || 0);
   };
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 8);
+  };
+
+  const visibleImages = images.slice(0, visibleCount);
 
   return (
     <section className="py-24 bg-white overflow-hidden" id="gallery">
@@ -52,24 +64,37 @@ export default function Gallery() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
                 <div className="w-10 h-1 bg-primary"></div>
-                <span className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">Nuestro Trabajo</span>
+                <span className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">Logística en Acción</span>
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-headline font-black leading-tight uppercase tracking-tighter italic">
                 Evidencias <br/><span className="text-primary italic">Corlat</span>
             </h2>
-            <p className="text-zinc-600 font-medium text-base md:text-lg lg:max-w-lg">Registro real de nuestras operaciones diarias en toda la República Mexicana. Cada flete es un compromiso cumplido.</p>
+            <p className="text-zinc-600 font-medium text-base md:text-lg lg:max-w-lg">Mostrando {visibleImages.length} de {totalCount} servicios exitosos en territorio mexicano.</p>
           </div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 items-start">
           {[0, 1, 2, 3].map((colIndex) => (
-            <div key={colIndex} className={`space-y-4 md:space-y-6 ${colIndex % 2 === 1 ? 'pt-12 md:pt-16' : ''}`}>
-              {images.filter((_, i) => i % 4 === colIndex).map((img) => (
+            <div key={colIndex} className={`flex flex-col gap-3 md:gap-6 ${colIndex % 2 === 1 ? 'mt-8 md:mt-12' : ''}`}>
+              {visibleImages.filter((_, i) => i % 4 === colIndex).map((img) => (
                 <GalleryImage key={img.id} img={img} />
               ))}
             </div>
           ))}
         </div>
+
+        {visibleCount < totalCount && (
+            <div className="mt-20 flex flex-col items-center gap-6">
+                <div className="w-px h-24 bg-gradient-to-b from-primary to-transparent hidden md:block"></div>
+                <button 
+                    onClick={handleLoadMore}
+                    className="group bg-zinc-950 text-white px-10 py-6 font-black uppercase tracking-[0.3em] text-xs hover:bg-primary transition-all shadow-2xl relative overflow-hidden active:scale-95"
+                >
+                    <span className="relative z-10">Cargar más evidencias Corlat</span>
+                    <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                </button>
+            </div>
+        )}
       </div>
     </section>
   );
