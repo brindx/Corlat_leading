@@ -56,7 +56,7 @@ export default function Services() {
             <span className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">Logística Especializada</span>
             <div className="w-8 h-1 bg-primary"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-headline font-black mb-4 uppercase tracking-tighter italic">Soluciones <span className="text-primary italic">Corlat</span></h2>
+          <h2 className="text-4xl md:text-5xl font-headline font-black mb-4 uppercase tracking-tighter italic">Servicios <span className="text-primary italic">Corlat</span></h2>
           <p className="text-zinc-500 max-w-2xl mx-auto font-medium text-sm">Precisión operativa y compromiso total en cada servicio contratado.</p>
         </div>
 

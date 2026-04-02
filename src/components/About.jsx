@@ -11,11 +11,11 @@ export default function About() {
             <div className="absolute -top-4 -left-4 w-16 h-16 md:w-24 md:h-24 bg-primary transition-transform group-hover:scale-110 duration-500"></div>
 
             <div className="relative z-10 shadow-2xl overflow-hidden bg-zinc-200">
-                <img
-                  className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.01] hover:scale-105"
-                  alt="Propietario Corlat"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCITKBL4aS1W6hiBFNxtfTX_f0dq4jwE6j-iZ3V4qXPybP_1ACqJ5FmYaci6K0M5JVnwQt1rwDDw3vMrpvYRinz2YneW9kRnRMPcTeLc9jz5ktzkzQD2UTOqQzyPriZg-f9KqMynEyZXaCLkOeNI3U7cf_YX7L3xBBFvXc-_2vjTMDs48g7mKwoOLQblxCMRBVytxMnVXkhrjI1Xn8fNWsqtlYAuUADIeGK_a6-QDxquSKlEq40GDdyqEEFTnkcTIz-97SIOh1Xa5ai"
-                />
+              <img
+                className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000 scale-[1.01] hover:scale-105"
+                alt="Propietario Corlat"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCITKBL4aS1W6hiBFNxtfTX_f0dq4jwE6j-iZ3V4qXPybP_1ACqJ5FmYaci6K0M5JVnwQt1rwDDw3vMrpvYRinz2YneW9kRnRMPcTeLc9jz5ktzkzQD2UTOqQzyPriZg-f9KqMynEyZXaCLkOeNI3U7cf_YX7L3xBBFvXc-_2vjTMDs48g7mKwoOLQblxCMRBVytxMnVXkhrjI1Xn8fNWsqtlYAuUADIeGK_a6-QDxquSKlEq40GDdyqEEFTnkcTIz-97SIOh1Xa5ai"
+              />
             </div>
           </div>
 

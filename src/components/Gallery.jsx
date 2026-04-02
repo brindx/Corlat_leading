@@ -30,7 +30,7 @@ const GalleryImage = ({ img }) => {
 
 export default function Gallery() {
   const [images, setImages] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [visibleCount, setVisibleCount] = useState(4);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {

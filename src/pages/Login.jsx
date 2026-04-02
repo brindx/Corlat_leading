@@ -49,7 +49,7 @@ export default function Login() {
       </div>
 
       {/* Main Container - BALANCED WHITE FORM */}
-      <main className="relative z-10 w-full max-w-md animate-fade-in-up py-10">
+      <main className="relative z-10 w-full max-w-md animate-fade-in-up">
         <div className="bg-white p-8 md:p-12 border-t-[8px] border-primary shadow-[0_60px_120px_rgba(0,0,0,0.6)]">
 
           {/* Branding - Balanced Size */}

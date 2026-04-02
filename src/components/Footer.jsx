@@ -60,11 +60,15 @@ export default function Footer() {
                 Liderazgo industrial en transporte y logística integral. Conectamos destinos con seguridad absoluta.
             </p>
             <div className="flex justify-center md:justify-start gap-4">
-              {[FacebookIcon, InstagramIcon, TikTokIcon].map((Icon, idx) => (
-                <a key={idx} href="#" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-primary transition-all group">
-                  <Icon />
-                </a>
-              ))}
+              <a href="https://www.facebook.com/share/18eNvWNPvm/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-primary transition-all group">
+                <FacebookIcon />
+              </a>
+              <a href="https://www.instagram.com/_corlat_latos?igsh=MTlxeXZkbzEzYzVqYw==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-primary transition-all group">
+                <InstagramIcon />
+              </a>
+              <a href="https://www.tiktok.com/@fletes_mudanzas_corlat?_r=1&_t=ZS-95ADeP8oefs" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center hover:bg-primary transition-all group">
+                <TikTokIcon />
+              </a>
             </div>
           </div>
 
