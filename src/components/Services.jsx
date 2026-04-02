@@ -19,7 +19,7 @@ const BillingIcon = () => (
 const allServices = [
   {
     title: 'Locales y Foráneos',
-    description: 'Nuestra red logística abarca cada rincón del territorio nacional, garantizando rutas estratégicas y seguridad absoluta en traslados urbanos e interestatales de larga distancia. Equipados con rastreo satelital para asegurar puntualidad constante.',
+    description: 'Nuestra red logística abarca cada rincón del territorio nacional, garantizando rutas estratégicas y seguridad absoluta en traslados urbanos e interestatales de larga distancia.',
     Icon: TruckIcon
   },
   {
@@ -60,10 +60,9 @@ export default function Services() {
           <p className="text-zinc-500 max-w-2xl mx-auto font-medium text-sm">Precisión operativa y compromiso total en cada servicio contratado.</p>
         </div>
 
-        {/* 3 Top, 2 Bottom Centered with PER-SERVICE WhatsApp */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-6xl mx-auto">
           {allServices.map((service, index) => {
-            const mensajeWa = encodeURIComponent(`¡Hola Corlat! 👋 Vengo de la página web. Me gustaría una cotización y más información para el servicio de: ${service.title}.`);
+            const mensajeWa = encodeURIComponent(`¡Hola Corlat! 👋 Vengo de la página web. Me gustaría una cotización para el servicio de: ${service.title}.`);
             
             return (
                 <div 

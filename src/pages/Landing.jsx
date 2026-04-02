@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import Services from '../components/Services';
 import Gallery from '../components/Gallery';
-import Coverage from '../components/Coverage';
 import Footer from '../components/Footer';
 import WhatsAppBtn from '../components/WhatsAppBtn';
 
