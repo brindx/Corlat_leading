@@ -15,7 +15,7 @@ const GalleryImage = ({ img }) => {
             )}
             
             <img 
-                className={`w-full h-auto object-cover grayscale-0 lg:grayscale lg:group-hover:grayscale-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+                className={`w-full h-auto object-cover grayscale-0 [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
                 src={img.image_url} 
                 alt="Corlat Evidence" 
                 onLoad={() => setIsLoaded(true)}
