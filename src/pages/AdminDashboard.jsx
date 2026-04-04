@@ -76,22 +76,45 @@ export default function AdminDashboard() {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
     setLoading(true);
-    showStatus(`Procesando ${files.length} archivos para Corlat...`, 'info');
     const options = { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true };
+    
     try {
         for (const file of files) {
-            const compressedFile = await imageCompression(file, options);
+            const isVideo = file.type.startsWith('video/');
+            let fileToUpload = file;
+
+            if (isVideo) {
+                showStatus(`Subiendo video pesado: ${file.name}... (Esto puede tardar según tu internet)`, 'info');
+            } else {
+                showStatus(`Optimizando imagen: ${file.name}...`, 'info');
+                fileToUpload = await imageCompression(file, options);
+            }
+            
             const fileExt = file.name.split('.').pop();
             const fileName = `${Math.random()}.${fileExt}`;
-            const { error: uploadError } = await supabase.storage.from('gallery-images').upload(fileName, compressedFile);
-            if (uploadError) throw uploadError;
+            
+            const { error: uploadError } = await supabase.storage.from('gallery-images').upload(fileName, fileToUpload);
+            
+            if (uploadError) {
+                if (uploadError.message.includes('size')) {
+                    throw new Error("El archivo es demasiado grande para el límite de Supabase (Suele ser 50MB).");
+                }
+                throw uploadError;
+            }
+            
             const { data: publicUrlData } = supabase.storage.from('gallery-images').getPublicUrl(fileName);
-            await supabase.from('portfolio').insert([{ image_url: publicUrlData.publicUrl, description: 'Evidencia Corlat' }]);
+            
+            await supabase.from('portfolio').insert([
+                { 
+                    image_url: publicUrlData.publicUrl, 
+                    description: isVideo ? 'Video Corlat' : 'Evidencia Corlat' 
+                }
+            ]);
         }
-        showStatus('¡Fotos cargadas y optimizadas!');
+        showStatus('¡Material Corlat cargado con éxito!');
         fetchData();
     } catch (err) {
-        showStatus('Error: ' + err.message, 'error');
+        showStatus('Fallo en carga: ' + err.message, 'error');
     } finally {
         setLoading(false);
     }
@@ -176,18 +199,26 @@ export default function AdminDashboard() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
               <label className="group relative border-2 border-dashed border-zinc-200 bg-white hover:border-primary hover:bg-zinc-50 transition-all duration-300 flex flex-col items-center justify-center p-6 cursor-pointer aspect-square order-first">
-                <PlusIcon /><p className="text-zinc-600 font-bold font-headline text-[9px] md:text-[10px] text-center uppercase tracking-widest">Subir Evidencias</p>
-                <input type="file" accept="image/*" multiple className="hidden" onChange={handleFileUpload} disabled={loading} />
+                <PlusIcon /><p className="text-zinc-600 font-bold font-headline text-[9px] md:text-[10px] text-center uppercase tracking-widest">Subir Material</p>
+                <input type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileUpload} disabled={loading} />
               </label>
 
               {photos.map((photo) => {
                 const isSelected = selectedPhotos.includes(photo.id);
+                const isVideo = photo.image_url?.match(/\.(mp4|webm|ogg|mov)$/i) || photo.description === 'Video Corlat';
+                
                 return (
                     <div key={photo.id} onClick={() => togglePhotoSelection(photo.id)} className={`relative group bg-white shadow-sm aspect-square overflow-hidden border-2 transition-all cursor-pointer ${isSelected ? 'border-primary ring-4 ring-primary/10' : 'border-zinc-50'}`}>
                         <div className={`absolute top-2 left-2 w-6 h-6 rounded-full border-2 z-20 flex items-center justify-center transition-all ${isSelected ? 'bg-primary border-primary scale-110' : 'bg-white/40 border-white md:opacity-0 md:group-hover:opacity-100'}`}>
                             {isSelected && <CheckIcon />}
                         </div>
-                        <img className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? 'grayscale-0 scale-105' : 'grayscale md:group-hover:grayscale-0'}`} src={photo.image_url} alt="Corlat" loading="lazy" />
+                        
+                        {isVideo ? (
+                          <video className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? 'grayscale-0 scale-105' : 'grayscale md:group-hover:grayscale-0'}`} src={photo.image_url} muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                        ) : (
+                          <img className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? 'grayscale-0 scale-105' : 'grayscale md:group-hover:grayscale-0'}`} src={photo.image_url} alt="Corlat" loading="lazy" />
+                        )}
+
                         {!isSelected && (
                             <button onClick={(e) => { e.stopPropagation(); triggerDelete(photo.id); }} className="absolute top-2 right-2 w-10 h-10 md:w-8 md:h-8 bg-zinc-950/80 backdrop-blur-sm text-white flex items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-all hover:bg-primary z-10"><DeleteIcon /></button>
                         )}

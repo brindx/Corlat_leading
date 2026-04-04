@@ -35,7 +35,8 @@ export default function Header() {
         <div className="hidden md:flex gap-8 items-center">
           <a className="text-zinc-600 font-medium hover:text-red-700 transition-colors font-headline" href="#about">Quiénes Somos</a>
           <a className="text-zinc-600 font-medium hover:text-red-700 transition-colors font-headline" href="#services">Servicios</a>
-          <a className="text-zinc-600 font-medium hover:text-red-700 transition-colors font-headline" href="#gallery">Galería</a>
+          <a className="text-zinc-600 font-medium hover:text-red-700 transition-colors font-headline" href="#gallery">Material</a>
+          <a className="text-zinc-600 font-medium hover:text-red-700 transition-colors font-headline" href="#footer">Atención Directa</a>
           <a 
             className="bg-[#25D366] text-white px-5 py-2 font-bold flex items-center gap-2 hover:opacity-90 transition-opacity" 
             href={whatsappUrl}
@@ -59,7 +60,8 @@ export default function Header() {
         <div className="md:hidden bg-white border-t border-zinc-100 p-6 flex flex-col gap-4 animate-fade-in">
             <a className="text-zinc-600 font-medium font-headline" href="#about" onClick={() => setIsMobileMenuOpen(false)}>Quiénes Somos</a>
             <a className="text-zinc-600 font-medium font-headline" href="#services" onClick={() => setIsMobileMenuOpen(false)}>Servicios</a>
-            <a className="text-zinc-600 font-medium font-headline" href="#gallery" onClick={() => setIsMobileMenuOpen(false)}>Galería</a>
+            <a className="text-zinc-600 font-medium font-headline" href="#gallery" onClick={() => setIsMobileMenuOpen(false)}>Material</a>
+            <a className="text-zinc-600 font-medium font-headline" href="#footer" onClick={() => setIsMobileMenuOpen(false)}>Atención Directa</a>
             <a 
                 className="bg-[#25D366] text-white p-3 font-bold flex items-center justify-center gap-2" 
                 href={whatsappUrl}
