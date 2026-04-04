@@ -1,75 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { useNavigate } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
-import Logo from '../assets/Corlat_Logo.png';
 
-const GalleryIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-);
-const LogoutIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-);
 const PlusIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-200 group-hover:text-primary transition-colors mb-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-2 text-primary group-hover:scale-110 transition-transform"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 );
-const DeleteIcon = () => (
+
+const TrashIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
 );
+
 const CheckIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
 );
 
-const DeleteModal = ({ isOpen, onCancel, onConfirm, targetName, count }) => {
-    if (!isOpen) return null;
-    return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-zinc-950/80 backdrop-blur-md animate-fade-in-up text-left">
-            <div className="bg-white max-w-sm w-full border-t-[8px] border-primary p-8 shadow-2xl space-y-6 text-center">
-                <div className="w-16 h-16 bg-red-50 text-primary mx-auto rounded-full flex items-center justify-center animate-pulse">
-                    <DeleteIcon />
-                </div>
-                <div className="space-y-1">
-                    <h3 className="text-xl font-headline font-black uppercase tracking-tighter italic text-zinc-950">Confirmar Baja</h3>
-                    <p className="text-zinc-500 text-[10px] font-medium leading-tight italic">
-                        {count > 1 
-                            ? `Estás a punto de eliminar permanentemente ${count} evidencias de logística.` 
-                            : `Estás a punto de eliminar permanentemente esta evidencia.`}
-                    </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3 pt-2">
-                    <button onClick={onCancel} className="bg-zinc-100 text-zinc-400 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-zinc-200 transition-colors">Cancelar</button>
-                    <button onClick={onConfirm} className="bg-primary text-white py-4 font-black uppercase text-[10px] tracking-widest hover:brightness-110 shadow-xl shadow-primary/20">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    );
-};
+const LogoutIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+);
 
-export default function AdminDashboard() {
-  const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [uploadStatus, setUploadStatus] = useState(null);
-  const [deleteDialog, setDeleteDialog] = useState({ isOpen: false, ids: [], name: '' });
-  const [selectedPhotos, setSelectedPhotos] = useState([]);
-  const navigate = useNavigate();
+export default function AdminDashboard({ onLogout }) {
+  const [media, setMedia] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ text: '', type: '' });
+  const [selectedMedia, setSelectedMedia] = useState([]);
 
-  useEffect(() => { fetchData(); }, []);
+  useEffect(() => {
+    fetchMedia();
+  }, []);
 
-  const showStatus = (msg, type = 'success') => {
-    setUploadStatus({ msg, type });
-    setTimeout(() => setUploadStatus(null), 3500);
+  const fetchMedia = async () => {
+    const { data } = await supabase.from('portfolio').select('*').order('created_at', { ascending: false });
+    setMedia(data || []);
   };
 
-  const fetchData = async () => {
-    setLoading(true);
-    const { data: galleryData } = await supabase.from('portfolio').select('*').order('created_at', { ascending: false });
-    setPhotos(galleryData || []);
-    setLoading(false);
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate('/login');
+  const showStatus = (text, type = 'success') => {
+    setStatus({ text, type });
+    setTimeout(() => setStatus({ text: '', type: '' }), 4000);
   };
 
   const handleFileUpload = async (event) => {
@@ -84,9 +50,9 @@ export default function AdminDashboard() {
             let fileToUpload = file;
 
             if (isVideo) {
-                showStatus(`Subiendo video pesado: ${file.name}... (Esto puede tardar según tu internet)`, 'info');
+                showStatus(`Cargando video: ${file.name}...`, 'info');
             } else {
-                showStatus(`Optimizando imagen: ${file.name}...`, 'info');
+                showStatus(`Optimizando foto: ${file.name}...`, 'info');
                 fileToUpload = await imageCompression(file, options);
             }
             
@@ -96,137 +62,155 @@ export default function AdminDashboard() {
             const { error: uploadError } = await supabase.storage.from('gallery-images').upload(fileName, fileToUpload);
             
             if (uploadError) {
-                if (uploadError.message.includes('size')) {
-                    throw new Error("El archivo es demasiado grande para el límite de Supabase (Suele ser 50MB).");
-                }
+                if (uploadError.message.includes('size')) throw new Error("Archivo muy pesado (Límite 50MB)");
                 throw uploadError;
             }
             
             const { data: publicUrlData } = supabase.storage.from('gallery-images').getPublicUrl(fileName);
             
-            await supabase.from('portfolio').insert([
-                { 
-                    image_url: publicUrlData.publicUrl, 
-                    description: isVideo ? 'Video Corlat' : 'Evidencia Corlat' 
-                }
-            ]);
+            await supabase.from('portfolio').insert([{ 
+                image_url: publicUrlData.publicUrl, 
+                description: isVideo ? 'Video Corlat' : 'Evidencia Corlat' 
+            }]);
         }
-        showStatus('¡Material Corlat cargado con éxito!');
-        fetchData();
+        showStatus('¡Material Corlat guardado con éxito!');
+        fetchMedia();
     } catch (err) {
-        showStatus('Fallo en carga: ' + err.message, 'error');
+        showStatus('Error: ' + err.message, 'error');
     } finally {
         setLoading(false);
     }
   };
 
-  const togglePhotoSelection = (id) => {
-    setSelectedPhotos(prev => 
-        prev.includes(id) ? prev.filter(pId => pId !== id) : [...prev, id]
-    );
+  const toggleSelection = (id) => {
+    setSelectedMedia(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
   };
 
-  const selectAllPhotos = () => {
-    if (selectedPhotos.length === photos.length) setSelectedPhotos([]);
-    else setSelectedPhotos(photos.map(p => p.id));
+  const deleteSelected = async () => {
+    if (!window.confirm(`¿Seguro que quieres borrar estos ${selectedMedia.length} elementos de Corlat?`)) return;
+    
+    setLoading(true);
+    try {
+        const itemsToDelete = media.filter(m => selectedMedia.includes(m.id));
+        for (const item of itemsToDelete) {
+            const fileName = item.image_url.split('/').pop();
+            await supabase.storage.from('gallery-images').remove([fileName]);
+        }
+        const { error } = await supabase.from('portfolio').delete().in('id', selectedMedia);
+        if (error) throw error;
+        showStatus('Material eliminado correctamente');
+        setSelectedMedia([]);
+        fetchMedia();
+    } catch (err) {
+        showStatus('Fallo al borrar: ' + err.message, 'error');
+    } finally {
+        setLoading(false);
+    }
   };
 
-  const triggerDelete = (id) => setDeleteDialog({ isOpen: true, ids: [id], name: 'Evidencia Individual' });
-  
-  const triggerMultiDelete = () => {
-    if (selectedPhotos.length === 0) return;
-    setDeleteDialog({ isOpen: true, ids: selectedPhotos, name: `${selectedPhotos.length} fotos seleccionadas` });
-  };
-
-  const confirmDelete = async () => {
-    const { ids } = deleteDialog;
-    await supabase.from('portfolio').delete().in('id', ids); 
-    showStatus(ids.length > 1 ? `${ids.length} evidencias eliminadas` : 'Evidencia eliminada');
-    setSelectedPhotos([]);
-    setDeleteDialog({ isOpen: false, ids: [], name: '' });
-    fetchData();
-  };
+  const photos = media.filter(m => !m.image_url?.match(/\.(mp4|webm|ogg|mov)$/i) && m.description !== 'Video Corlat');
+  const videos = media.filter(m => m.image_url?.match(/\.(mp4|webm|ogg|mov)$/i) || m.description === 'Video Corlat');
 
   return (
-    <div className="bg-surface-container-low text-on-surface min-h-screen font-body relative text-left pb-10">
-      <DeleteModal 
-        isOpen={deleteDialog.isOpen} 
-        onCancel={() => setDeleteDialog({ ...deleteDialog, isOpen: false })} 
-        onConfirm={confirmDelete} 
-        targetName={deleteDialog.name}
-        count={deleteDialog.ids.length}
-      />
-
-      {uploadStatus && (
-        <div className="fixed top-24 right-6 z-[60] px-6 py-4 rounded shadow-2xl animate-fade-in-up border-l-4 flex items-center gap-4 bg-white border-primary text-zinc-900 border">
-            <div className="w-2 h-2 rounded-full bg-primary animate-ping"></div>
-            <p className="text-xs font-black uppercase tracking-widest">{uploadStatus.msg}</p>
-        </div>
-      )}
-
-      <header className="bg-white border-b-4 border-primary flex justify-between items-center px-6 md:px-8 h-20 w-full sticky top-0 z-50 shadow-sm">
-        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navigate('/')} title="Ver Página Pública">
-            <img src={Logo} alt="Corlat Logo" className="h-10 md:h-12 w-auto object-contain" />
-            <div className="flex flex-col">
-                <div className="text-xl md:text-2xl font-black text-on-surface uppercase tracking-tighter font-headline leading-none group-hover:text-primary transition-colors">Corlat <span className="text-primary italic text-lg md:text-xl">Admin</span></div>
-                <div className="text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] font-headline mt-1">SISTEMA LOGÍSTICO</div>
+    <div className="min-h-screen bg-zinc-50 font-body">
+      {/* Header Admin */}
+      <nav className="bg-zinc-950 text-white p-6 md:p-8 flex items-center justify-between shadow-2xl sticky top-0 z-50">
+        <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-primary flex items-center justify-center font-black italic text-xl">C</div>
+            <div>
+                <h1 className="font-headline font-black text-lg md:text-xl uppercase tracking-tighter italic">Corlat <span className="text-primary">Admin</span></h1>
+                <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Gestión de Evidencia Industrial</p>
             </div>
         </div>
-        <button onClick={handleSignOut} className="px-6 py-2 bg-zinc-900 text-white text-[10px] font-black uppercase tracking-widest hover:bg-primary transition-all duration-300">Cerrar Sesión</button>
-      </header>
+        
+        <div className="flex items-center gap-3">
+            {selectedMedia.length > 0 && (
+                <button onClick={deleteSelected} className="bg-primary text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-red-800 transition-all shadow-lg animate-fade-in">
+                    <TrashIcon /> Borrar Seleccionados ({selectedMedia.length})
+                </button>
+            )}
+            <button onClick={onLogout} className="bg-zinc-800 text-white px-4 py-2 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-zinc-700 transition-all border border-zinc-700">
+                <LogoutIcon /> Salir del Sistema
+            </button>
+        </div>
+      </nav>
 
-      <main className="max-w-7xl mx-auto p-6 md:p-14 space-y-12 md:space-y-16">
-          <section className="space-y-6 md:space-y-8" id="photo-manager">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-1">
-                <div className="flex items-center gap-4">
-                <div className="w-1.5 h-8 md:h-10 bg-primary"></div>
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase font-headline italic">Galería de <span className="text-primary italic">Evidencias</span></h2>
+      <main className="max-w-7xl mx-auto p-6 md:p-12 space-y-16">
+        
+        {/* Status Bar */}
+        {status.text && (
+            <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-4 rounded-none shadow-2xl z-50 border-t-4 animate-fade-in-up font-bold text-xs uppercase tracking-widest flex items-center gap-4 ${status.type === 'error' ? 'bg-white text-red-700 border-red-700' : 'bg-zinc-950 text-white border-primary'}`}>
+                {status.text}
+            </div>
+        )}
+
+        {/* Carga Progresiva */}
+        <section className="bg-white p-8 border border-zinc-200 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-2 h-full bg-primary"></div>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div className="space-y-2">
+                    <h2 className="text-2xl font-headline font-black uppercase tracking-tighter italic">Subida de Material</h2>
+                    <p className="text-xs text-zinc-400 font-medium tracking-tight">Fotos (.jpg, .png) y Videos (.mp4) se clasifican automáticamente.</p>
                 </div>
-                
-                {photos.length > 0 && (
-                    <div className="flex flex-wrap items-center gap-3">
-                        <button onClick={selectAllPhotos} className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-zinc-900 transition-colors px-3 py-2">
-                            {selectedPhotos.length === photos.length ? 'Desmarcar todo' : 'Seleccionar todo'}
-                        </button>
-                        {selectedPhotos.length > 0 && (
-                            <button onClick={triggerMultiDelete} className="bg-primary text-white px-5 py-3 text-[10px] font-black uppercase tracking-widest hover:brightness-110 flex items-center gap-2 shadow-lg shadow-primary/20 animate-fade-in outline-none">
-                                <DeleteIcon /> Borrar ({selectedPhotos.length})
-                            </button>
-                        )}
-                    </div>
-                )}
+                <label className={`group relative bg-zinc-950 text-white px-10 py-5 font-black uppercase tracking-[0.3em] text-[10px] transition-all cursor-pointer hover:bg-primary ${loading ? 'opacity-50 pointer-events-none' : ''}`}>
+                    <span>Elegir Archivos Corlat</span>
+                    <input type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileUpload} disabled={loading} />
+                    <div className="absolute inset-0 border-2 border-white/10 m-1"></div>
+                </label>
             </div>
+            {loading && <div className="mt-6 h-1 bg-zinc-100 overflow-hidden"><div className="h-full bg-primary animate-progress"></div></div>}
+        </section>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-              <label className="group relative border-2 border-dashed border-zinc-200 bg-white hover:border-primary hover:bg-zinc-50 transition-all duration-300 flex flex-col items-center justify-center p-6 cursor-pointer aspect-square order-first">
-                <PlusIcon /><p className="text-zinc-600 font-bold font-headline text-[9px] md:text-[10px] text-center uppercase tracking-widest">Subir Material</p>
-                <input type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileUpload} disabled={loading} />
-              </label>
-
-              {photos.map((photo) => {
-                const isSelected = selectedPhotos.includes(photo.id);
-                const isVideo = photo.image_url?.match(/\.(mp4|webm|ogg|mov)$/i) || photo.description === 'Video Corlat';
-                
-                return (
-                    <div key={photo.id} onClick={() => togglePhotoSelection(photo.id)} className={`relative group bg-white shadow-sm aspect-square overflow-hidden border-2 transition-all cursor-pointer ${isSelected ? 'border-primary ring-4 ring-primary/10' : 'border-zinc-50'}`}>
-                        <div className={`absolute top-2 left-2 w-6 h-6 rounded-full border-2 z-20 flex items-center justify-center transition-all ${isSelected ? 'bg-primary border-primary scale-110' : 'bg-white/40 border-white md:opacity-0 md:group-hover:opacity-100'}`}>
-                            {isSelected && <CheckIcon />}
-                        </div>
-                        
-                        {isVideo ? (
-                          <video className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? 'grayscale-0 scale-105' : 'grayscale md:group-hover:grayscale-0'}`} src={photo.image_url} muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
-                        ) : (
-                          <img className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? 'grayscale-0 scale-105' : 'grayscale md:group-hover:grayscale-0'}`} src={photo.image_url} alt="Corlat" loading="lazy" />
-                        )}
-
-                        {!isSelected && (
-                            <button onClick={(e) => { e.stopPropagation(); triggerDelete(photo.id); }} className="absolute top-2 right-2 w-10 h-10 md:w-8 md:h-8 bg-zinc-950/80 backdrop-blur-sm text-white flex items-center justify-center lg:opacity-0 lg:group-hover:opacity-100 transition-all hover:bg-primary z-10"><DeleteIcon /></button>
-                        )}
-                    </div>
-                );
-              })}
+        {/* Sección: BÚNKER DE VIDEOS */}
+        <section className="space-y-6">
+            <div className="flex items-center gap-4">
+                <div className="w-1.5 h-6 bg-primary"></div>
+                <h3 className="text-xl font-headline font-black uppercase tracking-tighter italic">Búnker de Videos <span className="text-zinc-300 ml-2 font-body font-normal text-sm">({videos.length})</span></h3>
             </div>
-          </section>
+            {videos.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {videos.map((vid) => {
+                        const isSelected = selectedMedia.includes(vid.id);
+                        return (
+                            <div key={vid.id} onClick={() => toggleSelection(vid.id)} className={`relative group bg-white border-2 p-2 transition-all cursor-pointer ${isSelected ? 'border-primary shadow-xl scale-102 bg-primary/5' : 'border-zinc-200 shadow-sm hover:border-zinc-400'}`}>
+                                <video className={`w-full aspect-video object-cover transition-all duration-700 ${isSelected ? 'grayscale-0' : 'grayscale group-hover:grayscale-0'}`} src={vid.image_url} muted loop playsInline onMouseOver={e => e.target.play()} onMouseOut={e => e.target.pause()} />
+                                <div className={`absolute top-4 left-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-primary border-primary' : 'bg-white/50 border-white'}`}>
+                                    {isSelected && <CheckIcon />}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            ) : (
+                <div className="py-12 text-center bg-white border-2 border-dashed border-zinc-100 text-zinc-300 font-bold uppercase tracking-widest text-[10px]">No hay videos registrados</div>
+            )}
+        </section>
+
+        {/* Sección: HEMEROTECA DE FOTOS */}
+        <section className="space-y-6">
+            <div className="flex items-center gap-4">
+                <div className="w-1.5 h-6 bg-zinc-400"></div>
+                <h3 className="text-xl font-headline font-black uppercase tracking-tighter italic">Hemeroteca de Fotos <span className="text-zinc-300 ml-2 font-body font-normal text-sm">({photos.length})</span></h3>
+            </div>
+            {photos.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {photos.map((img) => {
+                        const isSelected = selectedMedia.includes(img.id);
+                        return (
+                            <div key={img.id} onClick={() => toggleSelection(img.id)} className={`relative group bg-white border-2 p-1.5 transition-all cursor-pointer ${isSelected ? 'border-primary shadow-lg scale-102 bg-primary/5' : 'border-zinc-100 shadow-sm hover:border-zinc-300'}`}>
+                                <img className={`w-full aspect-square object-cover transition-all duration-700 ${isSelected ? 'grayscale-0' : 'grayscale group-hover:grayscale-0'}`} src={img.image_url} alt="Corlat" loading="lazy" />
+                                <div className={`absolute top-3 left-3 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? 'bg-primary border-primary' : 'bg-white/50 border-white'}`}>
+                                    {isSelected && <CheckIcon />}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            ) : (
+                <div className="py-12 text-center bg-white border-2 border-dashed border-zinc-100 text-zinc-300 font-bold uppercase tracking-widest text-[10px]">No hay fotos registradas</div>
+            )}
+        </section>
+
       </main>
     </div>
   );
