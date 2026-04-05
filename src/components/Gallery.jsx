@@ -132,8 +132,8 @@ export default function Gallery() {
           </div>
         </div>
         
-        {/* Galería de Cuadrícula Industrial (Sin huecos) */}
-        <div className={`grid ${filter === 'videos' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'} gap-4 md:gap-6 animate-fade-in`}>
+        {/* Galería Sincronizada (Perfecta en Tablet y Mobile) */}
+        <div className={`grid ${filter === 'videos' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'} gap-2 md:gap-4 lg:gap-6 animate-fade-in`}>
           {displayedItems.map((img) => (
             <GalleryImage 
               key={img.id} 
