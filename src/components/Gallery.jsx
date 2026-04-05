@@ -6,40 +6,38 @@ const GalleryImage = ({ img, isVideoLayout }) => {
     const isVideo = img.image_url?.match(/\.(mp4|webm|ogg|mov)$/i) || img.description === 'Video Corlat';
 
     return (
-        <div className={`group relative overflow-hidden bg-zinc-100 border border-zinc-200 animate-fade-in transition-all duration-700 w-full mb-4 md:mb-8 ${isVideoLayout ? 'shadow-xl' : 'shadow-sm'}`}>
+        <div className={`group relative overflow-hidden bg-zinc-100 border border-zinc-200 animate-fade-in transition-all duration-700 w-full mb-0 ${isVideoLayout ? 'shadow-xl' : 'shadow-sm'}`}>
             {!isLoaded && (
-                <div className="absolute inset-0 bg-zinc-200 animate-pulse">
-                    <div className="w-full h-full flex items-center justify-center opacity-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    </div>
-                </div>
+                <div className="absolute inset-0 bg-zinc-200 animate-pulse"></div>
             )}
             
-            {isVideo ? (
-            <video 
-              className={`w-full h-auto object-cover transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
-              src={img.image_url} 
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              preload="metadata"
-              controlsList="nodownload"
-              disablePictureInPicture
-              onLoadedData={() => setIsLoaded(true)}
-            />
-          ) : (
-                <img 
-                    className={`w-full h-auto object-cover transition-all duration-700 group-hover:scale-110 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
-                    src={img.image_url} 
-                    alt="Corlat Evidence" 
-                    onLoad={() => setIsLoaded(true)}
-                    loading="lazy"
+            <div className={`relative group w-full ${isVideo ? 'aspect-video' : 'aspect-[3/4]'} overflow-hidden`}>
+              {isVideo ? (
+                <video 
+                  className={`w-full h-full object-cover transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+                  src={img.image_url} 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  preload="metadata"
+                  controlsList="nodownload"
+                  disablePictureInPicture
+                  onLoadedData={() => setIsLoaded(true)}
                 />
-            )}
+              ) : (
+                    <img 
+                        className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+                        src={img.image_url} 
+                        alt="Corlat Evidence" 
+                        onLoad={() => setIsLoaded(true)}
+                        loading="lazy"
+                    />
+                )}
 
-            <div className="absolute inset-0 bg-zinc-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-10 pointer-events-none">
-                 <p className="text-white text-[10px] font-black uppercase tracking-widest leading-none">{img.description || 'Evidencia Corlat'}</p>
+                <div className="absolute inset-0 bg-zinc-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 z-10 pointer-events-none">
+                     <p className="text-white text-[10px] font-black uppercase tracking-widest leading-none">{img.description || 'Evidencia Corlat'}</p>
+                </div>
             </div>
         </div>
     );
@@ -134,13 +132,14 @@ export default function Gallery() {
           </div>
         </div>
         
-        <div className={`grid ${filter === 'videos' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'} gap-2 md:gap-4 items-start transition-all duration-500`}>
-          {Array.from({ length: columnsCount }).map((_, colIndex) => (
-            <div key={colIndex} className="flex flex-col">
-              {displayedItems.filter((_, i) => i % columnsCount === colIndex).map((img) => (
-                <GalleryImage key={img.id} img={img} isVideoLayout={filter === 'videos'} />
-              ))}
-            </div>
+        {/* Galería de Cuadrícula Industrial (Sin huecos) */}
+        <div className={`grid ${filter === 'videos' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'} gap-4 md:gap-6 animate-fade-in`}>
+          {displayedItems.map((img) => (
+            <GalleryImage 
+              key={img.id} 
+              img={img} 
+              isVideoLayout={filter === 'videos'} 
+            />
           ))}
         </div>
 
