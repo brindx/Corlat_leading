@@ -81,7 +81,7 @@ const ChatBot = () => {
 
       {/* Ventana de Chat */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-[280px] md:w-[320px] bg-white rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.2)] overflow-hidden border border-zinc-100 flex flex-col animate-in fade-in slide-in-from-bottom-5 duration-500">
+        <div className="absolute bottom-16 right-0 w-[280px] md:w-[320px] bg-white rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.2)] overflow-hidden border border-zinc-100 flex flex-col animate-in fade-in slide-in-from-bottom-5 duration-500 will-change-transform">
           
           <div className="p-4 border-b border-zinc-50 flex flex-col items-center bg-zinc-50/50">
                 <h3 className="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-zinc-950 italic">Corlat <span className="text-[#b22222]">Assist</span></h3>
