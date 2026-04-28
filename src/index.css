@@ -55,6 +55,19 @@
   to { opacity: 1; transform: scale(1); }
 }
 
+/* Optimización de Rendimiento - Hardware Acceleration */
+.will-change-transform {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Deferir renderizado de secciones pesadas */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
 /* Scrollbar Industrial Corlat */
 ::-webkit-scrollbar {
   width: 8px;
@@ -64,4 +77,10 @@
 }
 ::-webkit-scrollbar-thumb {
   @apply bg-zinc-300 hover:bg-primary transition-colors;
+}
+
+/* Smoothness Global */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
