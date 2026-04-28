@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const TruckIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary mb-4 group-hover:scale-110 transition-transform"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
@@ -46,11 +46,32 @@ const allServices = [
 
 export default function Services() {
   const numeroWa = "529931707640";
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="py-20 md:py-24 bg-zinc-50 overflow-hidden font-body" id="services">
+    <section 
+        ref={containerRef}
+        className="py-20 md:py-24 bg-zinc-50 overflow-hidden font-body" 
+        id="services"
+    >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <div className="flex items-center justify-center gap-3 mb-2">
             <div className="w-8 h-1 bg-primary"></div>
             <span className="text-xs font-black uppercase tracking-[0.4em] text-zinc-400">Logística Especializada</span>
@@ -65,32 +86,34 @@ export default function Services() {
             const mensajeWa = encodeURIComponent(`¡Hola Corlat! 👋 Vengo de la página web. Me gustaría una cotización para el servicio de: ${service.title}.`);
             
             return (
-                <div 
-                    key={index} 
-                    className={`
-                        bg-white p-8 md:p-10 border-t-4 border-zinc-100 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col items-start text-left 
-                        w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] min-h-[360px]
-                    `}
-                >
-                  <service.Icon />
-                  <h4 className="text-xl font-headline font-black mb-4 uppercase tracking-tight group-hover:text-primary transition-colors leading-tight">{service.title}</h4>
-                  <p className="text-zinc-500 text-xs md:text-sm leading-relaxed font-bold mb-8 flex-grow">
-                    {service.description}
-                  </p>
+              <div 
+                key={index} 
+                className={`
+                  bg-white p-8 md:p-10 border-t-4 border-zinc-100 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-700 group flex flex-col items-start text-left 
+                  w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2rem)] min-h-[360px]
+                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
+                `}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                <service.Icon />
+                <h4 className="text-xl font-headline font-black mb-4 uppercase tracking-tight group-hover:text-primary transition-colors leading-tight">{service.title}</h4>
+                <p className="text-zinc-500 text-xs md:text-sm leading-relaxed font-bold mb-8 flex-grow">
+                  {service.description}
+                </p>
 
-                  <a 
-                    href={`https://wa.me/${numeroWa}?text=${mensajeWa}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/btn relative inline-flex items-center gap-3 text-primary font-black text-[11px] uppercase tracking-[0.25em] border-b-2 border-primary/20 pb-1 hover:border-primary transition-all mt-auto"
-                  >
-                    Cotizar servicio
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover/btn:translate-x-1 transition-transform">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </a>
-                </div>
+                <a 
+                  href={`https://wa.me/${numeroWa}?text=${mensajeWa}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/btn relative inline-flex items-center gap-3 text-primary font-black text-[11px] uppercase tracking-[0.25em] border-b-2 border-primary/20 pb-1 hover:border-primary transition-all mt-auto"
+                >
+                  Cotizar servicio
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover/btn:translate-x-1 transition-transform">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
             )
           })}
         </div>
