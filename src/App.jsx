@@ -4,6 +4,7 @@ import { supabase } from './lib/supabase'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
+import ChatBot from './components/ChatBot'
 import './App.css'
 
 // ProtectedRoute Component
@@ -43,6 +44,7 @@ function App() {
           } 
         />
       </Routes>
+      <ChatBot />
     </Router>
   )
 }
